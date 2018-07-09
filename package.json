@@ -1,0 +1,16 @@
+{
+  "private": false,
+  "version": "0.0.2",
+  "license": "Apache 2.0",
+  "description": "Exercise Jahia",
+  "name": "jahia-test-angular",
+  "main": "index.html",
+  "authors": [
+    "Sebastien Sabat <ssabat2000@gmail.com>"
+  ],
+  "dependencies": {
+    "angular": "^1.7.2",
+    "bootstrap": "^3.3.7",
+    "elasticsearch-browser": "^12.1.3"
+  }
+}

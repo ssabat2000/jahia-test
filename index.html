@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TestAppJahia</title>
+		<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
+		<!-- include dependency modules -->
+		<script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+		<script type="text/javascript" src="node_modules/elasticsearch-browser/elasticsearch.angular.min.js"></script>
+		<!-- include App Module -->
+		<script type="text/javascript" src="scripts/index.js"></script>
+	</head>
+	<body ng-app="MyApp">
+		<div ng-controller="myServerHealthController" class="container">
+			<h1>Jahia Test</h1>
+			
+			<!-- if there is an error, display its message -->
+			<div ng-if="error" class="alert alert-danger" role="alert">{{error.message}}
+			</div>
+
+			<!-- if clusterInfo is available, display formatted json -->
+			<div ng-if="clusterInfo" class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Cluster Info</h3>
+				</div>
+				<div class="panel-body">
+					<pre>{{clusterInfo | json}}</pre>
+				</div>
+			</div>
+		</div>
+		
+		<div ng-controller="myActionController" class="container">
+			<div>
+				{{actionResultAdd}}
+			</div>
+			<label>New Event:</label><br>
+			<button ng-click="addEvent()" type="button" class="btn">AddEvent</button>
+			<hr>
+			<label>Search Criteria:</label>
+			<input type="text" ng-model="aSearchString" placeholder="Enter search criteria here">
+			<br>
+			<button ng-click="searchEvent()" type="button" class="btn">SearchEvent</button>
+			<div ng-if="hits.length <= 0" class="panel panel-default">
+				<p>0 results found matching the search criteria.</p>
+			</div>
+			<div ng-if="hits.length > 0" class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> {{actionResultSearch}} </h3>
+				</div>
+				<!-- display as data table -->
+				<table class="table table-bordered">
+					<tr>
+						<th>#</th>
+						<th>insertion date</th>
+						<th>user agent</th>
+					</tr>
+					<tr ng-repeat="hit in hits">
+						<td>{{ $index + 1 }}</td>
+						<td>{{hit['_source']['date']}}</td>
+						<td>{{hit['_source']['agent']}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>		
+	</body>
+</html>
